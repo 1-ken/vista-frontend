@@ -1,20 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
 import {
   ChevronDown,
   Globe,
-  LogOut,
 } from 'lucide-react';
 import Logo from './Logo';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
-  const [user, setUser] = useState(null);
 
   const location = useLocation();
-  const navigate = useNavigate();
 
   const { scrollYProgress } = useScroll();
 
@@ -23,21 +20,6 @@ const Navbar = () => {
     damping: 30,
     restDelta: 0.001,
   });
-
-  useEffect(() => {
-    const userData = localStorage.getItem('user');
-
-    if (userData) {
-      setUser(JSON.parse(userData));
-    }
-  }, [location]);
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    setUser(null);
-    navigate('/');
-  };
 
   const navLinks = [
     {
@@ -179,45 +161,6 @@ const Navbar = () => {
 
           {/* CTA Button */}
           <div className="flex items-center gap-4 ml-8">
-
-            {/* LOGIN TEMPORARILY DISABLED */}
-
-            {/*
-            {user ? (
-              <div className="relative group/user">
-                <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 border border-slate-100 hover:bg-white transition-all">
-                  <div className="w-8 h-8 rounded-full bg-accent text-white flex items-center justify-center text-xs font-bold">
-                    {user.name?.charAt(0) || 'U'}
-                  </div>
-
-                  <span className="text-[10px] uppercase tracking-widest font-black text-primary">
-                    {user.name}
-                  </span>
-                </button>
-
-                <div className="absolute top-full right-0 pt-2 opacity-0 invisible group-hover/user:opacity-100 group-hover/user:visible transition-all duration-300">
-                  <div className="bg-white rounded-2xl shadow-2xl border border-slate-50 overflow-hidden min-w-[180px]">
-                    {user.role === 'ADMIN' && (
-                      <Link
-                        to="/admin"
-                        className="flex items-center gap-3 px-6 py-4 text-xs font-bold text-primary hover:bg-slate-50 border-b border-slate-50"
-                      >
-                        <Globe size={14} /> Admin Panel
-                      </Link>
-                    )}
-
-                    <button
-                      onClick={handleLogout}
-                      className="w-full flex items-center gap-3 px-6 py-4 text-xs font-bold text-rose-500 hover:bg-rose-50 transition-colors"
-                    >
-                      <LogOut size={14} /> Sign Out
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ) : null}
-            */}
-
             <motion.div
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -327,27 +270,6 @@ const Navbar = () => {
                 transition={{ delay: 0.1 * navLinks.length + 0.3 }}
                 className="mt-10 sm:mt-12 md:mt-16 flex flex-col gap-4 w-full px-4"
               >
-                {/* LOGIN TEMPORARILY DISABLED */}
-
-                {/*
-                {user ? (
-                  <button
-                    onClick={handleLogout}
-                    className="bg-rose-500/10 text-rose-500 px-12 py-5 rounded-full text-[11px] uppercase tracking-[0.3em] font-bold border border-rose-500/20 hover:bg-rose-500 hover:text-white transition-all duration-500"
-                  >
-                    Sign Out
-                  </button>
-                ) : (
-                  <Link
-                    to="/login"
-                    onClick={() => setIsOpen(false)}
-                    className="bg-white/10 text-white px-12 py-5 rounded-full text-[11px] uppercase tracking-[0.3em] font-bold border border-white/20 hover:bg-white hover:text-dark transition-all duration-500"
-                  >
-                    Login / Register
-                  </Link>
-                )}
-                */}
-
                 <Link
                   to="/appointments"
                   onClick={() => setIsOpen(false)}

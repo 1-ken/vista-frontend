@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import ChatDrawer from './components/ChatDrawer';
 import ScrollToTop from './components/ScrollToTop';
 import RouteFallback from './components/RouteFallback';
@@ -22,7 +22,6 @@ const GalleryPage = lazy(() => import('./pages/GalleryPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 const AdminCRM = lazy(() => import('./pages/AdminCRM'));
-const LoginPage = lazy(() => import('./pages/LoginPage'));
 const CheckoutPage = lazy(() => import('./pages/CheckoutPage'));
 const StaffLogin = lazy(() => import('./pages/StaffLogin'));
 
@@ -66,7 +65,7 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/crm" element={<AdminCRM />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<Navigate to="/" replace />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/staff/login" element={<StaffLogin />} />
         </Routes>

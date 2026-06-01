@@ -21,14 +21,8 @@ const AdminCRM = () => {
 
   const fetchBookings = async () => {
     try {
-      const token = localStorage.getItem('token');
-      const base = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-      const response = await fetch(`${base}/bookings?limit=500&page=1`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      const payload = await response.json();
+      const response = await api.get('/bookings?limit=500&page=1');
+      const payload = response.data;
       const rows = Array.isArray(payload) ? payload : (payload.data || []);
       setBookings(rows);
 
