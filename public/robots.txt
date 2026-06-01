@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vista-voyage-seven.vercel.app/sitemap.xml
+Host: https://vista-voyage-seven.vercel.app
