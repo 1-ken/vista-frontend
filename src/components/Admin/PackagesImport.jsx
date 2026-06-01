@@ -58,9 +58,7 @@ const PackagesImport = ({ onImportDone }) => {
     form.append('file', file);
 
     try {
-      const res = await api.post('/tours/import', form, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
+      const res = await api.post('/tours/import', form);
       setResult(res.data);
       if (onImportDone) onImportDone();
     } catch (err) {
