@@ -158,7 +158,7 @@ const SafariRallySection = () => {
                 className="text-5xl font-bold"
                 style={{ color: "#c8a248" }}
               >
-                KSH 134
+                KSH 23420
                 <span className="text-lg text-[#777] font-normal ml-2">
                   / night
                 </span>
