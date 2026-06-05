@@ -15,6 +15,7 @@ import Luxury1 from '../assets/LUXURY 1.jpg';
 export const tours = [
   {
     id: "kenyas-grand-classic-safari",
+    currency: "USD",
     title: "Kenya's Grand Classic Safari",
     price: 76450,
     duration: "9 Days 8 Nights",
@@ -140,6 +141,7 @@ export const tours = [
   },
   {
     id: "exclusive-maasai-mara",
+    currency: "USD",
     title: "Exclusive Maasai Mara Safari Expedition",
     price: 71500,
     duration: "3 Days 2 Nights",
@@ -163,8 +165,9 @@ export const tours = [
   },
   {
     id: "dubai-skyline",
+    currency: "USD",
     title: "Dubai Skyline & Luxury Desert Escape",
-    price: 162500,
+    price: 262500,
     duration: "5 Days 4 Nights",
     location: "Dubai, UAE",
     image: DubaiSkyImage,
@@ -188,9 +191,10 @@ export const tours = [
   },
   {
     id: "south-africa-combo",
+    currency: "USD",
     title: "South Africa: Cape Town & Safari Combo",
-    price: 140500,
-    duration: "3 Days 2 Nights",
+    price: 240432,
+    duration: "7 Days 6 Nights",
     location: "Cape Town, SA",
     image: Saf,
     tag: "Luxury",
@@ -215,6 +219,7 @@ export const tours = [
   },
   {
     id: "amboseli-kilimanjaro",
+    currency: "USD",
     title: "Amboseli & Mt. Kilimanjaro View",
     price: 78000,
     duration: "3 Days 2 Nights",
@@ -237,6 +242,7 @@ export const tours = [
   },
   {
     id: "tsavo-west",
+    currency: "USD",
     title: "Tsavo West National Park Exploration",
     price: 273000,
     duration: "3 Days 2 Nights",
@@ -247,6 +253,7 @@ export const tours = [
   },
   {
     id: "wrc-safari-rally",
+    currency: "USD",
     title: "Exclusive WRC Safari Rally Accommodation",
     price: 23420,
     duration: "Per Night",

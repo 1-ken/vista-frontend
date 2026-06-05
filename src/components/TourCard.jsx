@@ -68,7 +68,7 @@ const TourCard = ({ tour }) => {
           <div className="absolute top-4 right-4">
             <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-full shadow-lg">
               <span className="text-lg font-bold text-[#004B49]">
-                KSH {Number(tour.price || 0).toLocaleString()}
+                KES {Number(tour.price || 0).toLocaleString()}
               </span>
             </div>
           </div>

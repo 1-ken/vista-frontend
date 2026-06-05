@@ -113,7 +113,7 @@ const AppointmentsPage = () => {
                   <div className="flex gap-6 text-accent p-8 bg-accent/5 rounded-3xl border border-accent/10 hover:border-dark-red transition-all duration-500">
                   <CheckCircle size={24} strokeWidth={1.5} className="shrink-0" />
                   <p className="text-sm font-bold leading-relaxed">
-                    IMPORTANT NOTE: All our Office Consultation cost a Non-refundable but redeemable fee of KSH 50 discounted to KSH 35 for a limited time!
+                    IMPORTANT NOTE: All our Office Consultation cost a Non-refundable but redeemable fee of $50!
                     
                     <br />
 

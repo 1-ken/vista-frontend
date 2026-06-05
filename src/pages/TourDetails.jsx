@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { tours as staticTours } from '../data/toursData';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -24,7 +24,6 @@ import {
 
 const TourDetails = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [tour, setTour] = useState(null);
   const [loadingTour, setLoadingTour] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
@@ -128,33 +127,34 @@ const TourDetails = () => {
     );
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    const finalBookingData = {
-      type: 'PACKAGE',
-      tourId: tour._id || tour.id,
-      guestName: bookingData.name,
-      guestEmail: bookingData.email,
-      guestPhone: bookingData.phone,
-      fromDate: bookingData.fromDate,
-      toDate: bookingData.toDate,
-      guestsCount: parseInt(bookingData.adults) + parseInt(bookingData.children) + parseInt(bookingData.infants),
-      totalPrice: totalPrice, 
-      metadata: {
-        adults: bookingData.adults,
-        children: bookingData.children,
-        infants: bookingData.infants,
-        message: bookingData.message
-      }
-    };
-
-    navigate('/checkout', { 
-      state: { 
-        bookingData: finalBookingData,
-        tourData: tour
-      } 
-    });
+    setLoading(true);
+    setError(null);
+    try {
+      await api.post('/bookings', {
+        type: 'PACKAGE',
+        tourId: tour._id || tour.id,
+        guestName: bookingData.name,
+        guestEmail: bookingData.email,
+        guestPhone: bookingData.phone,
+        fromDate: bookingData.fromDate,
+        toDate: bookingData.toDate,
+        guestsCount: parseInt(bookingData.adults) + parseInt(bookingData.children) + parseInt(bookingData.infants),
+        totalPrice: totalPrice,
+        metadata: {
+          adults: bookingData.adults,
+          children: bookingData.children,
+          infants: bookingData.infants,
+          message: bookingData.message
+        }
+      });
+      setSubmitted(true);
+    } catch (err) {
+      setError(err.response?.data?.message || err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const tabs = [
@@ -211,7 +211,7 @@ const TourDetails = () => {
                 </div>
                 <div className="bg-white/10 backdrop-blur-md px-8 py-4 rounded-2xl border border-white/20">
                   <span className="text-white/60 text-xs uppercase tracking-widest block mb-1">Starting from</span>
-                  <span className="text-3xl font-serif text-white">KSH {tour.price?.toLocaleString()}</span>
+                  <span className="text-3xl font-serif text-white">KES {tour.price?.toLocaleString()}</span>
                 </div>
               </div>
             </Reveal>
@@ -405,8 +405,8 @@ const TourDetails = () => {
                     <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10 pointer-events-none">
                       <div className="absolute top-[-50%] left-[-20%] w-[100%] h-[100%] border-[40px] border-white rounded-full"></div>
                     </div>
-                    <span className="text-accent text-[10px] uppercase tracking-[0.4em] font-black block mb-4">Reserve Your Journey</span>
-                    <h3 className="text-white text-3xl font-serif">Book This Package</h3>
+                    <span className="text-accent text-[10px] uppercase tracking-[0.4em] font-black block mb-4">Luxury Travel Inquiry</span>
+                    <h3 className="text-white text-3xl font-serif">Request a Quote</h3>
                   </div>
 
                   <div className="p-10">
@@ -419,8 +419,8 @@ const TourDetails = () => {
                         >
                           <CheckCircle2 size={40} />
                         </motion.div>
-                        <h4 className="text-2xl font-serif text-primary mb-4">Request Sent!</h4>
-                        <p className="text-primary/60 text-sm font-medium mb-10">Our luxury travel consultants will contact you shortly to finalize your custom itinerary.</p>
+                        <h4 className="text-2xl font-serif text-primary mb-4">Quote Request Received!</h4>
+                        <p className="text-primary/60 text-sm font-medium mb-10">We've received your booking request. Our team will send your personalised quote within 24 hours.</p>
                         <button 
                           onClick={() => setSubmitted(false)} 
                           className="text-primary text-[10px] font-bold uppercase tracking-widest border-b-2 border-accent pb-1"
@@ -598,9 +598,9 @@ const TourDetails = () => {
 
                         <div className="pt-6">
                           <div className="flex justify-between items-end mb-8 px-2">
-                            <span className="text-[10px] uppercase tracking-widest font-bold text-primary/60">Total Estimated</span>
+                            <span className="text-[10px] uppercase tracking-widest font-bold text-primary/60">Starting From</span>
                             <span className="text-4xl font-serif text-primary">
-                              KSH {(totalPrice || 0).toLocaleString()}
+                              KES {(totalPrice || 0).toLocaleString()}
                             </span>
                           </div>
                           <button 
@@ -612,13 +612,13 @@ const TourDetails = () => {
                               <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                             ) : (
                               <>
-                                <span className="uppercase tracking-[0.2em] text-[10px] font-black">Confirm Booking</span>
+                                <span className="uppercase tracking-[0.2em] text-[10px] font-black">Request a Quote</span>
                                 <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
                               </>
                             )}
                           </button>
                           <p className="text-center text-[9px] text-primary/40 uppercase tracking-widest font-bold mt-6">
-                            * Final price may vary based on customization
+                            * No payment required — our team will contact you within 24 hours
                           </p>
                         </div>
                       </form>
