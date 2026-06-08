@@ -151,6 +151,7 @@ const ToursManagement = () => {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute top-4 right-4 flex gap-2">
+                  {/^[a-f\d]{24}$/i.test(tour._id) && (<>
                   <button 
                     onClick={() => {
                       setEditingTour(tour);
@@ -178,6 +179,7 @@ const ToursManagement = () => {
                   >
                     <Trash2 size={14} />
                   </button>
+                  </>)}
                 </div>
                 {tour.tag && (
                   <div className="absolute bottom-4 left-4 bg-accent text-white px-3 py-1 rounded-md text-[9px] font-bold uppercase tracking-widest shadow-lg">
