@@ -3,7 +3,9 @@ import DubaiSkyImage from '../assets/Dubai sky.jpeg'
 import Swahili from '../assets/swahili.jpg';
 import Nairobi from '../assets/JAMAL LABELED IMAGES/GIRAFFE CENTRE SHOT.jpg';
 import Homabay from '../assets/Homabay.jpg';
-import Amboseli from '../assets/JAMAL LABELED IMAGES/MASAI MARA SAFARI SHOT 7.jpg';
+import Ambo from '../assets/Ambo.jpg';
+import Hotair from '../assets/hotair.jpg';
+import SAC from '../assets/SAC.jfif';
 import Tsavo from '../assets/Tsavo west.jpg';
 import Rally from '../assets/Rally accomodation.jpg';
 import Saf from '../assets/saf.jpeg';
@@ -20,7 +22,7 @@ export const tours = [
     price: 76450,
     duration: "9 Days 8 Nights",
     location: "Amboseli · Mara · Laikipia",
-    image: Luxury1,
+    image: Ambo,
     tag: "Ultra-Luxury",
     description: "The definitive ultra-luxury fly-in safari across Kenya's greatest landscapes. Crafted for travellers who expect excellence at every turn.",
     fullDescription: "This is the definitive ultra-luxury Kenya safari — crafted for travellers who expect excellence at every turn. Begin with a soft landing at Hemingways Nairobi, then fly to Angama Amboseli, where snowcapped Kilimanjaro frames vast elephant herds and Angama's signature design sets the tone.\n\nContinue to the Masai Mara for three nights at Mara Plains or Mara Nyika — two of the Mara ecosystem's most exclusive conservancy lodges, renowned for big cats, few vehicles, and extraordinary guiding.\n\nRewilded landscapes, night skies, and raw beauty — to restore the soul.\n\nConclude in Laikipia at &Beyond Suyian Lodge, a private conservancy retreat where rewilded landscapes and raw beauty restore the soul. All connections are fly-in, activities are shared with private arrangements on request, and Ongeri's concierge smooths every step.\n\nWhy we love this journey — this is not a compromise itinerary. Every lodge on this circuit sits at the very top of its category. We recommend this safari to guests who have done Kenya before and want to do it properly — or to those who want to start at the top and never look back.",
@@ -146,7 +148,7 @@ export const tours = [
     price: 71500,
     duration: "3 Days 2 Nights",
     location: "Maasai Mara, Kenya",
-    image: maraExImage,
+    image: Hotair,
     tag: "Best Seller",
     description: "Experience the magic of the Maasai Mara with our exclusive expedition. Witness the Great Migration, enjoy luxury tented camps, and embark on thrilling game drives led by expert guides.",
     itinerary: [
@@ -196,7 +198,7 @@ export const tours = [
     price: 240432,
     duration: "7 Days 6 Nights",
     location: "Cape Town, SA",
-    image: Saf,
+    image: SAC,
     tag: "Luxury",
     description: "Explore the vibrant city of Cape Town before heading into the wild for an unforgettable safari experience in South Africa's premier reserves.",
     itinerary: [
@@ -224,7 +226,7 @@ export const tours = [
     price: 78000,
     duration: "3 Days 2 Nights",
     location: "Amboseli, Kenya",
-    image: Amboseli,
+    image: Ambo,
     tag: "Photography",
     description: "Capture the iconic views of Mt. Kilimanjaro from Amboseli National Park. Famous for its large herds of elephants and stunning backdrops.",
     itinerary: [

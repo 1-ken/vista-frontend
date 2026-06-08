@@ -6,6 +6,11 @@ import RouteFallback from './components/RouteFallback';
 import { ArrowUp, MessageSquare } from 'lucide-react';
 import './App.css';
 
+// Auto-reload on chunk load failure (stale deployment cache)
+window.addEventListener('vite:preloadError', () => {
+  window.location.reload();
+});
+
 const Home = lazy(() => import('./pages/Home'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const CorporateServices = lazy(() => import('./pages/CorporateServices'));
@@ -67,7 +72,9 @@ function App() {
           <Route path="/admin/crm" element={<AdminCRM />} />
           <Route path="/login" element={<Navigate to="/" replace />} />
           <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/staff/login" element={<StaffLogin />} />
+          <Route path="/admin/login" element={<StaffLogin />} />
+          <Route path="/staff/login" element={<Navigate to="/admin/login" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
 

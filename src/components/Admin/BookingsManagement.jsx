@@ -249,7 +249,7 @@ const BookingsManagement = ({ initialType = 'ALL' }) => {
                 <tr key={booking._id || idx} className="hover:bg-white/5 transition-colors">
                   <td className="px-6 py-4">
                     <span className="text-xs font-mono font-medium text-white/60 bg-white/5 px-3 py-1.5 rounded-lg">
-                      {booking.bookingCode || 'N/A'}
+                      {booking.referenceId || 'N/A'}
                     </span>
                   </td>
                   <td className="px-6 py-4">
@@ -265,61 +265,27 @@ const BookingsManagement = ({ initialType = 'ALL' }) => {
                   </td>
                   <td className="px-6 py-4">
                     <span className="text-sm font-medium text-white/70 truncate max-w-[150px] block">
-                      {booking.tourName || booking.packageName || 'Custom Package'}
+                      {booking.packageName || booking.tour?.title || 'Custom Package'}
                     </span>
                   </td>
                   <td className="px-6 py-4 text-sm font-medium text-white/60">
                     {booking.fromDate ? new Date(booking.fromDate).toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' }) : 'TBA'}
                   </td>
                   <td className="px-6 py-4 text-sm font-bold text-white">
-                    KSH {(booking.totalPrice || 0).toLocaleString()}
+                    KES {(booking.totalPrice || 0).toLocaleString()}
                   </td>
-                  <td className="px-8 py-6">
-                    <div>
-                      <p className="text-sm font-bold text-slate-900">{booking.guestName}</p>
-                      <p className="text-[10px] text-slate-400 uppercase tracking-widest">{booking.guestEmail}</p>
-                    </div>
-                  </td>
-                  <td className="px-8 py-6">
-                    <div className="flex items-center gap-3">
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center border border-slate-100 ${
-                        booking.type === 'FLIGHT' ? 'text-blue-500 bg-blue-50' :
-                        booking.type === 'APPOINTMENT' ? 'text-purple-500 bg-purple-50' :
-                        'text-accent bg-accent/5'
-                      }`}>
-                        {booking.type === 'FLIGHT' ? <Plane size={14} /> : 
-                         booking.type === 'APPOINTMENT' ? <Clock size={14} /> : 
-                         <PackageIcon size={14} />}
-                      </div>
-                      <span className="text-[11px] font-bold text-slate-600 truncate max-w-[150px]">
-                        {booking.tour?.title || (booking.type === 'FLIGHT' ? 'Flight' : (booking.type === 'APPOINTMENT' ? 'Consultation' : 'Package'))}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-8 py-6 text-[11px] font-bold text-slate-600">
-                    {booking.fromDate ? new Date(booking.fromDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }) : 'TBA'}
-                  </td>
-                  <td className="px-8 py-6">
-                    <span className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border ${
-                      booking.paymentStatus === 'PAID' ? 'bg-emerald-50 text-emerald-600 border-emerald-100' :
-                      booking.paymentStatus === 'PARTIALLY_PAID' ? 'bg-blue-50 text-blue-600 border-blue-100' :
-                      'bg-rose-50 text-rose-600 border-rose-100'
-                    }`}>
-                      {booking.paymentStatus || 'UNPAID'}
-                    </span>
-                  </td>
-                  <td className="px-8 py-6">
+                  <td className="px-6 py-4">
                     <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest border ${
-                      (booking.workflowStatus || 'NEW') === 'NEW' ? 'bg-blue-50 text-blue-600 border-blue-100' :
-                      (booking.workflowStatus || 'NEW') === 'CONFIRMED' ? 'bg-emerald-50 text-emerald-600 border-emerald-100' :
-                      (booking.workflowStatus || 'NEW') === 'COMPLETED' ? 'bg-indigo-50 text-indigo-600 border-indigo-100' :
-                      (booking.workflowStatus || 'NEW') === 'CANCELLED' ? 'bg-rose-50 text-rose-600 border-rose-100' :
-                      'bg-amber-50 text-amber-600 border-amber-100'
+                      (booking.workflowStatus || 'NEW') === 'NEW' ? 'bg-blue-50/10 text-blue-400 border-blue-400/20' :
+                      (booking.workflowStatus || 'NEW') === 'CONFIRMED' ? 'bg-emerald-50/10 text-emerald-400 border-emerald-400/20' :
+                      (booking.workflowStatus || 'NEW') === 'COMPLETED' ? 'bg-indigo-50/10 text-indigo-400 border-indigo-400/20' :
+                      (booking.workflowStatus || 'NEW') === 'CANCELLED' ? 'bg-rose-50/10 text-rose-400 border-rose-400/20' :
+                      'bg-amber-50/10 text-amber-400 border-amber-400/20'
                     }`}>
-                      {(booking.workflowStatus || 'NEW').replace('_', ' ')}
+                      {(booking.workflowStatus || 'NEW').replace(/_/g, ' ')}
                     </span>
                   </td>
-                  <td className="px-8 py-6 text-right">
+                  <td className="px-6 py-4 text-right">
                     <div className="flex justify-end gap-1">
                       <button 
                         onClick={() => { setSelectedBooking(booking); setShowTimelineModal(true); }}

@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
       strictPort: false,
       proxy: {
         '/api': {
-          target: 'https://fxalerts.applawn.com',
+          target: 'http://localhost:5000',
           changeOrigin: true,
         },
       },

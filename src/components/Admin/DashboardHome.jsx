@@ -59,10 +59,10 @@ const DashboardHome = () => {
 
       {/* Stat Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
-        <StatCard title="Today's Revenue" value={`KSH ${(stats.totalRevenue || 53000).toLocaleString()}`} change="+55% this week" icon={DollarSign} accent="#0b3d2e" delay={0} />
+        <StatCard title="Today's Revenue" value={`KES ${(stats.totalRevenue || 53000).toLocaleString()}`} change="+55% this week" icon={DollarSign} accent="#0b3d2e" delay={0} />
         <StatCard title="Active Clients" value={stats.staffOnline || "2,300"} change="+3% this month" icon={Users} accent="#c8a248" delay={0.1} />
         <StatCard title="New Bookings" value={stats.totalBookings || 1462} change="+8% this week" icon={ShoppingBag} accent="#0b3d2e" delay={0.2} />
-        <StatCard title="Total Revenue" value={`KSH ${(stats.totalRevenue || 103430).toLocaleString()}`} change="+5% vs last month" icon={CreditCard} accent="#c8a248" delay={0.3} />
+        <StatCard title="Total Revenue" value={`KES ${(stats.totalRevenue || 103430).toLocaleString()}`} change="+5% vs last month" icon={CreditCard} accent="#c8a248" delay={0.3} />
       </div>
 
       {/* Charts Row */}
@@ -197,7 +197,7 @@ const DashboardHome = () => {
                       {b.fromDate ? new Date(b.fromDate).toLocaleDateString('en-GB', { day:'2-digit', month:'short' }) : 'TBA'}
                     </td>
                     <td className="px-6 py-4 text-sm font-bold text-primary font-serif">
-                      KSH {(b.totalPrice || 0).toLocaleString()}
+                      KES {(b.totalPrice || 0).toLocaleString()}
                     </td>
                     <td className="px-6 py-4">
                       <span className={`px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider ${
@@ -249,7 +249,7 @@ const DashboardHome = () => {
               style={{ background: 'rgba(200,162,72,0.2)' }} />
             <div className="relative z-10">
               <p className="text-xs font-bold text-white/50 uppercase tracking-widest mb-1">Monthly Revenue</p>
-              <h3 className="text-4xl font-serif text-accent mb-2">KSH {(stats.totalRevenue || 53000).toLocaleString()}</h3>
+              <h3 className="text-4xl font-serif text-accent mb-2">KES {(stats.totalRevenue || 53000).toLocaleString()}</h3>
               <p className="text-xs text-white/60 flex items-center gap-1 font-bold uppercase tracking-widest">
                 <TrendingUp size={13} /> +12% from last month
               </p>

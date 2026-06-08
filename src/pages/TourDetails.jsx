@@ -535,7 +535,7 @@ const TourDetails = () => {
                                       initial={{ opacity: 0, y: 10, scale: 0.95 }}
                                       animate={{ opacity: 1, y: 0, scale: 1 }}
                                       exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                      className="absolute top-full left-0 w-[280px] md:w-full bg-white border border-gray-100 rounded-2xl shadow-2xl p-6 z-50 mt-3 space-y-6 overflow-hidden"
+                                      className="absolute bottom-full left-1/2 -translate-x-1/2 w-[280px] bg-white border border-gray-100 rounded-2xl shadow-2xl p-6 z-50 mb-3 space-y-6 overflow-hidden"
                                     >
                                       <div className="flex items-center justify-between border-b border-gray-50 pb-4 mb-2">
                                         <h4 className="text-[11px] font-black uppercase tracking-[0.2em] text-primary/40">Select Travelers</h4>

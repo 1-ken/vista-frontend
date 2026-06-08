@@ -71,7 +71,7 @@ const AdminCRM = () => {
             { label: 'Total Bookings', value: stats.total, color: 'bg-blue-50 text-blue-600' },
             { label: 'Confirmed', value: stats.confirmed, color: 'bg-green-50 text-green-600' },
             { label: 'Pending Requests', value: stats.pending, color: 'bg-amber-50 text-amber-600' },
-            { label: 'Total Revenue', value: `KSH ${stats.revenue.toLocaleString()}`, color: 'bg-primary text-white' }
+            { label: 'Total Revenue', value: `KES ${stats.revenue.toLocaleString()}`, color: 'bg-primary text-white' }
           ].map((stat, i) => (
             <Reveal key={i} delay={i * 0.1}>
               <div className={`p-8 rounded-[2rem] ${stat.color} shadow-sm border border-transparent hover:border-dark-red transition-all duration-500`}>
@@ -126,7 +126,7 @@ const AdminCRM = () => {
                           </p>
                         </td>
                         <td className="py-6">
-                          <p className="text-sm font-black text-primary">KSH {booking.totalPrice?.toLocaleString()}</p>
+                          <p className="text-sm font-black text-primary">KES {booking.totalPrice?.toLocaleString()}</p>
                         </td>
                         <td className="py-6">
                           <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest ${

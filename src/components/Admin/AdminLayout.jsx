@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from './Sidebar';
-import { Bell, Search, Settings, User, Menu, X } from 'lucide-react';
+import { Bell, Search, Settings, User, Menu, X, LogOut } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '../../api/axios';
 import { listItemsFromResponse } from '../../utils/apiList';
@@ -14,10 +14,15 @@ const pageNames = {
   itinerary: 'Itinerary', trend: 'Trend',
 };
 
-const AdminLayout = ({ children, activeTab, setActiveTab }) => {
+const AdminLayout = ({ children, activeTab, setActiveTab, onLogout }) => {
   const [notifications, setNotifications] = useState([]);
   const [showNotif, setShowNotif]         = useState(false);
   const [mobileOpen, setMobileOpen]       = useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem('admin');
+    if (onLogout) onLogout();
+  };
 
   useEffect(() => {
     api.get('/bookings?limit=20&page=1').then((r) => {
@@ -113,12 +118,16 @@ const AdminLayout = ({ children, activeTab, setActiveTab }) => {
                 </AnimatePresence>
               </div>
 
-              {/* Avatar */}
+              {/* Avatar + Logout */}
               <div className="flex items-center gap-3 pl-3 border-l border-primary/10">
                 <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center text-primary shadow-lg shadow-accent/20">
                   <User size={16} />
                 </div>
                 <span className="text-sm font-medium text-primary hidden sm:block">Admin</span>
+                <button onClick={handleLogout} title="Logout"
+                  className="p-2.5 text-primary/50 hover:bg-red-50 hover:text-red-500 rounded-xl transition-all">
+                  <LogOut size={18} />
+                </button>
               </div>
             </div>
           </div>
