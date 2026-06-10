@@ -19,11 +19,17 @@ const ToursPage = () => {
       try {
         const response = await api.get('/tours?limit=200');
         const dbTours = response.data?.data || response.data || [];
-        const dbIds = new Set(dbTours.map(t => t._id));
-        const staticOnly = staticTours.filter(t => !dbIds.has(t._id) && !dbIds.has(t.id));
-        setTours([...dbTours, ...staticOnly]);
+        // If DB has tours, show only DB tours (admin-managed)
+        // Fall back to static only if DB returns nothing
+        if (dbTours.length > 0) {
+          setTours(dbTours);
+        } else {
+          setTours(staticTours);
+        }
       } catch (error) {
         console.error('Error fetching tours:', error);
+        // Backend unreachable — use static data
+        setTours(staticTours);
       } finally {
         setLoading(false);
       }

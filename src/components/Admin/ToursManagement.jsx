@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Plus, Search, Edit2, Trash2, MapPin, 
-  Clock, DollarSign, Tag, Image as ImageIcon, X
+  Clock, DollarSign, Tag, Image as ImageIcon, X, Lock
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '../../api/axios';
 import { listItemsFromResponse } from '../../utils/apiList';
+import { tours as staticTours } from '../../data/toursData';
+import getImageUrl from '../../utils/imageUrl';
 
 const EMPTY_FORM = {
   title: '', description: '', price: '', duration: '',
@@ -41,10 +43,15 @@ const ToursManagement = () => {
   const fetchTours = async () => {
     try {
       const response = await api.get('/tours?limit=500&page=1');
-      setTours(listItemsFromResponse(response));
+      const dbTours = listItemsFromResponse(response);
+      // Merge: DB tours first, then static tours not already in DB by title
+      const dbTitles = new Set(dbTours.map(t => t.title?.toLowerCase()));
+      const staticOnly = staticTours.filter(t => !dbTitles.has(t.title?.toLowerCase()));
+      setTours([...dbTours, ...staticOnly]);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching tours:', error);
+      setTours(staticTours);
       setLoading(false);
     }
   };
@@ -146,12 +153,12 @@ const ToursManagement = () => {
             >
               <div className="relative h-48 overflow-hidden">
                 <img 
-                  src={tour.image?.startsWith('http') ? tour.image : `${import.meta.env.VITE_API_URL?.split('/api')[0] || 'http://localhost:5000'}${tour.image}`} 
+                  src={getImageUrl(tour.image)} 
                   alt={tour.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute top-4 right-4 flex gap-2">
-                  {/^[a-f\d]{24}$/i.test(tour._id) && (<>
+                  {/^[a-f\d]{24}$/i.test(tour._id) ? (<>
                   <button 
                     onClick={() => {
                       setEditingTour(tour);
@@ -179,7 +186,11 @@ const ToursManagement = () => {
                   >
                     <Trash2 size={14} />
                   </button>
-                  </>)}
+                  </>) : (
+                    <div className="p-2 bg-white/90 backdrop-blur-sm rounded-lg shadow-sm" title="Static tour — manage in toursData.js">
+                      <Lock size={14} className="text-slate-400" />
+                    </div>
+                  )}
                 </div>
                 {tour.tag && (
                   <div className="absolute bottom-4 left-4 bg-accent text-white px-3 py-1 rounded-md text-[9px] font-bold uppercase tracking-widest shadow-lg">
