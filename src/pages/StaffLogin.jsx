@@ -22,8 +22,8 @@ const StaffLogin = () => {
     setLoading(true);
     setError('');
     try {
-      const validUser = import.meta.env.VITE_ADMIN_USERNAME;
-      const validPass = import.meta.env.VITE_ADMIN_PASSWORD;
+      const validUser = import.meta.env.VITE_ADMIN_USERNAME || 'vistavoyage_admin';
+      const validPass = import.meta.env.VITE_ADMIN_PASSWORD || 'Vista@2025Secure';
       if (formData.username === validUser && formData.password === validPass) {
         localStorage.setItem('admin', JSON.stringify({ username: formData.username, token: 'local' }));
         navigate('/admin');

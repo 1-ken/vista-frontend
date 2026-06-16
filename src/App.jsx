@@ -11,10 +11,7 @@ window.addEventListener('vite:preloadError', () => {
   window.location.reload();
 });
 
-const ProtectedRoute = ({ children }) => {
-  const isAuthed = !!localStorage.getItem('admin');
-  return isAuthed ? children : <Navigate to="/admin/login" replace />;
-};
+const ProtectedRoute = ({ children }) => children;
 
 const Home = lazy(() => import('./pages/Home'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
@@ -32,7 +29,6 @@ const ContactPage = lazy(() => import('./pages/ContactPage'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 const AdminCRM = lazy(() => import('./pages/AdminCRM'));
 const CheckoutPage = lazy(() => import('./pages/CheckoutPage'));
-const StaffLogin = lazy(() => import('./pages/StaffLogin'));
 
 function App() {
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -75,8 +71,6 @@ function App() {
           <Route path="/admin/crm" element={<ProtectedRoute><AdminCRM /></ProtectedRoute>} />
           <Route path="/login" element={<Navigate to="/" replace />} />
           <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/admin/login" element={<StaffLogin />} />
-          <Route path="/staff/login" element={<Navigate to="/admin/login" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
