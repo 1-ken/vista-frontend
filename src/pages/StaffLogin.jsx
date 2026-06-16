@@ -2,16 +2,15 @@ import React, { useState } from 'react';
 import { useNavigate, Link, Navigate } from 'react-router-dom';
 import { Lock, ArrowRight, ShieldCheck, Globe, User } from 'lucide-react';
 import Logo from '../components/Logo';
-import api from '../api/axios';
 
 const StaffLogin = () => {
   const navigate = useNavigate();
-
-  // Already logged in — go straight to dashboard
-  if (localStorage.getItem('admin')) return <Navigate to="/admin" replace />;
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Already logged in — go straight to dashboard
+  if (localStorage.getItem('admin')) return <Navigate to="/admin" replace />;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,13 +28,7 @@ const StaffLogin = () => {
         localStorage.setItem('admin', JSON.stringify({ username: formData.username, token: 'local' }));
         navigate('/admin');
       } else {
-        // Try backend as fallback
-        const { data } = await api.post('/admin/auth/login', {
-          username: formData.username,
-          password: formData.password,
-        });
-        localStorage.setItem('admin', JSON.stringify(data));
-        navigate('/admin');
+        setError('Invalid username or password.');
       }
     } catch (err) {
       setError('Invalid username or password.');
