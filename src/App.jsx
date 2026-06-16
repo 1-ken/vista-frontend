@@ -11,12 +11,16 @@ window.addEventListener('vite:preloadError', () => {
   window.location.reload();
 });
 
+const ProtectedRoute = ({ children }) => {
+  const isAuthed = !!localStorage.getItem('admin');
+  return isAuthed ? children : <Navigate to="/admin/login" replace />;
+};
+
 const Home = lazy(() => import('./pages/Home'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const CorporateServices = lazy(() => import('./pages/CorporateServices'));
 const BecomePartner = lazy(() => import('./pages/BecomePartner'));
 const PartnerApplyPage = lazy(() => import('./pages/PartnerApplyPage'));
-const PartnerDashboard = lazy(() => import('./pages/PartnerDashboard'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const AddBlogPage = lazy(() => import('./pages/AddBlogPage'));
 const ToursPage = lazy(() => import('./pages/ToursPage'));
@@ -59,7 +63,6 @@ function App() {
           <Route path="/corporate" element={<CorporateServices />} />
           <Route path="/partners" element={<BecomePartner />} />
           <Route path="/partners/apply" element={<PartnerApplyPage />} />
-          <Route path="/partner/dashboard" element={<PartnerDashboard />} />
           <Route path="/blogs" element={<BlogPage />} />
           <Route path="/blogs/add" element={<AddBlogPage />} />
           <Route path="/tours" element={<ToursPage />} />
@@ -68,8 +71,8 @@ function App() {
           <Route path="/appointments" element={<AppointmentsPage />} />
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/crm" element={<AdminCRM />} />
+          <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+          <Route path="/admin/crm" element={<ProtectedRoute><AdminCRM /></ProtectedRoute>} />
           <Route path="/login" element={<Navigate to="/" replace />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/admin/login" element={<StaffLogin />} />

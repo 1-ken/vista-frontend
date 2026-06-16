@@ -59,10 +59,10 @@ const DashboardHome = () => {
 
       {/* Stat Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
-        <StatCard title="Today's Revenue" value={`KES ${(stats.totalRevenue || 53000).toLocaleString()}`} change="+55% this week" icon={DollarSign} accent="#0b3d2e" delay={0} />
-        <StatCard title="Active Clients" value={stats.staffOnline || "2,300"} change="+3% this month" icon={Users} accent="#c8a248" delay={0.1} />
-        <StatCard title="New Bookings" value={stats.totalBookings || 1462} change="+8% this week" icon={ShoppingBag} accent="#0b3d2e" delay={0.2} />
-        <StatCard title="Total Revenue" value={`KES ${(stats.totalRevenue || 103430).toLocaleString()}`} change="+5% vs last month" icon={CreditCard} accent="#c8a248" delay={0.3} />
+        <StatCard title="Today's Revenue"  value={`KES ${(stats.todayRevenue   || 0).toLocaleString()}`} change={`${stats.bookingsToday || 0} bookings today`}      icon={DollarSign} accent="#0b3d2e" delay={0}   />
+        <StatCard title="Active Clients"   value={(stats.activeClients  || 0).toLocaleString()}            change={`${stats.totalBookings || 0} total bookings`}      icon={Users}      accent="#c8a248" delay={0.1} />
+        <StatCard title="New Bookings"     value={(stats.totalBookings  || 0).toLocaleString()}            change={`${stats.pendingBookings || 0} pending`}            icon={ShoppingBag} accent="#0b3d2e" delay={0.2} />
+        <StatCard title="Total Revenue"    value={`KES ${(stats.totalRevenue   || 0).toLocaleString()}`} change={`KES ${(stats.monthlyRevenue || 0).toLocaleString()} this month`} icon={CreditCard}  accent="#c8a248" delay={0.3} />
       </div>
 
       {/* Charts Row */}
@@ -223,10 +223,10 @@ const DashboardHome = () => {
             <h6 className="text-lg font-serif text-primary mb-6">Platform Overview</h6>
             <div className="space-y-5">
               {[
-                { label: 'Active Tours', value: stats.activeTours || 12, color: 'bg-primary', pct: 75 },
-                { label: 'Confirmed Bookings', value: stats.totalBookings || 48, color: 'bg-accent', pct: 60 },
-                { label: 'Pending Payments', value: stats.pendingPayments || 8, color: 'bg-primary', pct: 30 },
-                { label: 'Staff Online', value: stats.staffOnline || 5, color: 'bg-accent', pct: 50 },
+                { label: 'Active Tours',        value: stats.activeTours     || 0, color: 'bg-primary', pct: Math.min(100, ((stats.activeTours || 0) / 20) * 100) },
+                { label: 'Total Bookings',       value: stats.totalBookings   || 0, color: 'bg-accent',  pct: Math.min(100, ((stats.totalBookings || 0) / 100) * 100) },
+                { label: 'Pending Bookings',     value: stats.pendingBookings || 0, color: 'bg-primary', pct: Math.min(100, ((stats.pendingBookings || 0) / 50) * 100) },
+                { label: 'Active Clients',       value: stats.activeClients   || 0, color: 'bg-accent',  pct: Math.min(100, ((stats.activeClients || 0) / 200) * 100) },
               ].map((item, i) => (
                 <div key={i}>
                   <div className="flex justify-between items-center mb-2">
@@ -249,9 +249,9 @@ const DashboardHome = () => {
               style={{ background: 'rgba(200,162,72,0.2)' }} />
             <div className="relative z-10">
               <p className="text-xs font-bold text-white/50 uppercase tracking-widest mb-1">Monthly Revenue</p>
-              <h3 className="text-4xl font-serif text-accent mb-2">KES {(stats.totalRevenue || 53000).toLocaleString()}</h3>
+              <h3 className="text-4xl font-serif text-accent mb-2">KES {(stats.monthlyRevenue || 0).toLocaleString()}</h3>
               <p className="text-xs text-white/60 flex items-center gap-1 font-bold uppercase tracking-widest">
-                <TrendingUp size={13} /> +12% from last month
+                <TrendingUp size={13} /> KES {(stats.todayRevenue || 0).toLocaleString()} today
               </p>
             </div>
           </div>

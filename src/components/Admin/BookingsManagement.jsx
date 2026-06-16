@@ -200,6 +200,7 @@ const BookingsManagement = ({ initialType = 'ALL' }) => {
               <option value="FLIGHT" className="bg-[#12141C]">Aviation</option>
               <option value="PACKAGE" className="bg-[#12141C]">Expeditions</option>
               <option value="APPOINTMENT" className="bg-[#12141C]">Consultations</option>
+              <option value="CONTACT" className="bg-[#12141C]">Contact Messages</option>
             </select>
 
             <select 

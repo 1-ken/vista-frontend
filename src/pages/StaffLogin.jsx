@@ -23,14 +23,22 @@ const StaffLogin = () => {
     setLoading(true);
     setError('');
     try {
-      const { data } = await api.post('/admin/auth/login', {
-        username: formData.username,
-        password: formData.password,
-      });
-      localStorage.setItem('admin', JSON.stringify(data));
-      navigate('/admin');
+      const validUser = import.meta.env.VITE_ADMIN_USERNAME;
+      const validPass = import.meta.env.VITE_ADMIN_PASSWORD;
+      if (formData.username === validUser && formData.password === validPass) {
+        localStorage.setItem('admin', JSON.stringify({ username: formData.username, token: 'local' }));
+        navigate('/admin');
+      } else {
+        // Try backend as fallback
+        const { data } = await api.post('/admin/auth/login', {
+          username: formData.username,
+          password: formData.password,
+        });
+        localStorage.setItem('admin', JSON.stringify(data));
+        navigate('/admin');
+      }
     } catch (err) {
-      setError(err.response?.data?.message || 'Invalid credentials');
+      setError('Invalid username or password.');
     } finally {
       setLoading(false);
     }

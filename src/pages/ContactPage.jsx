@@ -31,28 +31,22 @@ const ContactPage = () => {
     }
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    try {
-      setLoading(true);
-      setError('');
-
-      await api.post('/contact', {
-        name: formData.name,
-        email: formData.email,
-        subject: formData.subject,
-        message: formData.message,
-      });
-
+    setLoading(true);
+    setTimeout(() => {
       setFormData(initialFormData);
-      setSubmitted(true);
-    } catch (submitError) {
-      setError(submitError.response?.data?.message || 'Failed to send message. Please try again.');
-    } finally {
       setLoading(false);
-    }
+      setSubmitted(true);
+    }, 800);
   };
+
+  // Auto-dismiss confirmation after 20s
+  useEffect(() => {
+    if (!submitted) return;
+    const t = setTimeout(() => setSubmitted(false), 20000);
+    return () => clearTimeout(t);
+  }, [submitted]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

@@ -20,18 +20,35 @@ const MessagesView = () => {
     try {
       const response = await api.get('/bookings?limit=500&page=1');
       const messageData = listItemsFromResponse(response)
-        .filter(b => b.metadata?.message || b.metadata?.consultationType)
-        .map(b => ({
-          id: b._id,
-          sender: b.guestName,
-          email: b.guestEmail,
-          phone: b.guestPhone,
-          subject: b.type === 'APPOINTMENT' ? `Consultation: ${b.metadata?.consultationType}` : `Package Interest: ${b.tour?.title || 'Adventure'}`,
-          message: b.metadata?.message || 'New booking inquiry received.',
-          date: b.createdAt,
-          status: b.status === 'PENDING' ? 'New' : 'Processed',
-          type: b.type
-        }));
+        .filter(b => b.type === 'CONTACT' || b.metadata?.message || b.metadata?.consultationType || b.notes)
+        .map(b => {
+          let subject = '';
+          let message = '';
+          if (b.type === 'CONTACT') {
+            const notesStr = b.notes || '';
+            const subjMatch = notesStr.match(/Subject: ([^|]+)/);
+            const msgMatch = notesStr.match(/Message: (.+)/);
+            subject = subjMatch ? subjMatch[1].trim() : 'Contact Inquiry';
+            message = msgMatch ? msgMatch[1].trim() : notesStr;
+          } else if (b.type === 'APPOINTMENT') {
+            subject = `Consultation: ${b.metadata?.consultationType || (b.notes?.match(/Consultation: ([^|]+)/)?.[1]?.trim() || 'General')}`;
+            message = b.metadata?.message || b.notes || 'Appointment inquiry.';
+          } else {
+            subject = `Package Interest: ${b.tour?.title || b.packageName || 'Adventure'}`;
+            message = b.metadata?.message || b.notes || 'New booking inquiry.';
+          }
+          return {
+            id: b._id,
+            sender: b.guestName,
+            email: b.guestEmail,
+            phone: b.guestPhone,
+            subject,
+            message,
+            date: b.createdAt,
+            status: (b.workflowStatus === 'NEW' || !b.workflowStatus) ? 'New' : 'Processed',
+            type: b.type
+          };
+        });
       setMessages(messageData);
       if (messageData.length > 0) setSelectedMessage(messageData[0]);
       setLoading(false);

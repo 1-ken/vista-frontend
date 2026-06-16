@@ -8,7 +8,7 @@ import MessagesView       from '../components/Admin/MessagesView';
 import PackagesImport     from '../components/Admin/PackagesImport';
 import { Lock, User, ArrowRight, ShieldCheck, Globe } from 'lucide-react';
 import Logo from '../components/Logo';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 
 // ── Login Gate ────────────────────────────────────────────────────────────────
@@ -27,14 +27,22 @@ const LoginGate = ({ onSuccess }) => {
     setLoading(true);
     setError('');
     try {
-      const { data } = await api.post('/admin/auth/login', {
-        username: formData.username,
-        password: formData.password,
-      });
-      localStorage.setItem('admin', JSON.stringify(data));
-      onSuccess();
+      const validUser = import.meta.env.VITE_ADMIN_USERNAME;
+      const validPass = import.meta.env.VITE_ADMIN_PASSWORD;
+      if (formData.username === validUser && formData.password === validPass) {
+        localStorage.setItem('admin', JSON.stringify({ username: formData.username, token: 'local' }));
+        onSuccess();
+      } else {
+        // Try backend as fallback
+        const { data } = await api.post('/admin/auth/login', {
+          username: formData.username,
+          password: formData.password,
+        });
+        localStorage.setItem('admin', JSON.stringify(data));
+        onSuccess();
+      }
     } catch (err) {
-      setError(err.response?.data?.message || 'Invalid credentials');
+      setError('Invalid username or password.');
     } finally {
       setLoading(false);
     }
@@ -160,7 +168,7 @@ const AdminDashboard = () => {
     if (hash) setActiveTab(hash);
   }, []);
 
-  // if (!authed) return <LoginGate onSuccess={() => setAuthed(true)} />;
+  if (!authed) return <LoginGate onSuccess={() => setAuthed(true)} />;
 
   const render = () => {
     switch (activeTab) {
@@ -180,8 +188,14 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('admin');
+    setAuthed(false);
+    window.location.href = '/admin/login';
+  };
+
   return (
-    <AdminLayout activeTab={activeTab} setActiveTab={setActiveTab} onLogout={() => setAuthed(false)}>
+    <AdminLayout activeTab={activeTab} setActiveTab={setActiveTab} onLogout={handleLogout}>
       {render()}
     </AdminLayout>
   );

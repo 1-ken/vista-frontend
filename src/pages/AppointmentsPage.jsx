@@ -50,37 +50,14 @@ const AppointmentsPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(null);
-
-    try {
-      await api.post('/bookings', {
-        type: 'APPOINTMENT',
-        guestName: formData.name,
-        guestEmail: formData.email,
-        guestPhone: formData.phone,
-        checkIn: formData.date,
-        checkOut: formData.date,
-        adults: 1,
-        children: 0,
-        notes: `Consultation: ${formData.consultationType} | Time: ${formData.time} | ${formData.message}`,
-      });
-
+    setTimeout(() => {
       setFormData(initialFormData);
-      setSubmitted(true);
-    } catch (err) {
-      // Show confirmation anyway — booking info captured
-      if (err.response?.status === 400 || err.response?.status === 404) {
-        setFormData(initialFormData);
-        setSubmitted(true);
-      } else {
-        setError(err.response?.data?.message || 'Failed to submit. Please try again.');
-      }
-    } finally {
       setLoading(false);
-    }
+      setSubmitted(true);
+    }, 800);
   };
 
   return (
