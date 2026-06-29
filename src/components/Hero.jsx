@@ -5,7 +5,7 @@ import { ChevronRight } from 'lucide-react';
 
 import skuVideo from '../assets/sku.mp4';
 import postVideo from '../assets/post.mp4'; // NEW VIDEO
-
+import airVideo from '../assets/air.mp4';
 import img2 from '../assets/p9.jpg';
 
 const slides = [
@@ -72,7 +72,7 @@ const Hero = ({ skipBrandIntro = false }) => {
         >
           {/* First slide uses POST video */}
           <source
-            src={index === 0 ? postVideo : skuVideo}
+            src={index === 0 ? airVideo : skuVideo}
             type="video/mp4"
           />
         </motion.video>
