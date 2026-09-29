@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Block admin, internal tools and non-public routes
+Disallow: /admin/
+Disallow: /admin/login
+Disallow: /admin/crm
+Disallow: /tasks/
+Disallow: /tasks/login
+Disallow: /checkout
+Disallow: /blogs/add
+Disallow: /partners/apply
+Disallow: /careers/apply
+Disallow: /educational-travel/quote
+Disallow: /staff/
+
+Sitemap: https://vistavoyagetravel.group/sitemap.xml

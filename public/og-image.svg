@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#07110d;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0b3d2e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#d4af37;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e5c04b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)" />
+
+  <!-- Decorative circle -->
+  <circle cx="1050" cy="120" r="280" fill="#d4af37" opacity="0.06" />
+  <circle cx="150" cy="520" r="200" fill="#d4af37" opacity="0.04" />
+
+  <!-- Gold accent line -->
+  <rect x="80" y="260" width="60" height="2" fill="url(#gold)" />
+
+  <!-- Tagline -->
+  <text x="80" y="240" font-family="Georgia, serif" font-size="18" fill="#d4af37" letter-spacing="8" text-transform="uppercase">VISTAVOYAGE TRAVEL GROUP</text>
+
+  <!-- Main headline -->
+  <text x="80" y="330" font-family="Georgia, serif" font-size="72" font-weight="400" fill="#ffffff">Luxury African</text>
+  <text x="80" y="415" font-family="Georgia, serif" font-size="72" font-style="italic" fill="#d4af37">Safaris &amp; Bespoke Travel</text>
+
+  <!-- Sub text -->
+  <text x="80" y="490" font-family="Arial, sans-serif" font-size="22" fill="#ffffff" opacity="0.6">Kenya · Tanzania · Uganda · Rwanda · South Africa · UAE</text>
+
+  <!-- URL -->
+  <text x="80" y="570" font-family="Arial, sans-serif" font-size="18" fill="#d4af37" opacity="0.7">vistavoyagetravel.group</text>
+</svg>
